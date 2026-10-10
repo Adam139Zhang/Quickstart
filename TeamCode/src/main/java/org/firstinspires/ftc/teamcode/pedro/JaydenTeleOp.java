@@ -90,23 +90,21 @@ public class JaydenTeleOp extends BaseClass{
                     if(gamepad1.right_bumper) {
                         state = State.OUTTAKE;
                     }
-                    break;
                 case INTAKE:
                     blocker.setPosition(blockDown);
                     intake.setPower(1);
                     flywheel.setPower(0);
                     counter.setPower(0);
-                    break;
                 case OUTTAKE:
-                    intake.setPower(0);
                     flywheel.setPower(0.465);
                     counter.setPower(0.41);
                     if(gamepad1.right_trigger>0.3){
                         blocker.setPosition(blockUp);
+                        intake.setPower(1);
                     } else {
                         blocker.setPosition(blockDown);
+                        intake.setPower(0);
                     }
-                    break;
             }
 
             // Telemetry
