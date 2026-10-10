@@ -93,7 +93,7 @@ public class MeetsTeleOp extends BaseClass{
                 FLOWER
              }
 
-             State state = = State.IDLE;
+             State state = State.IDLE;
 
              switch(state){
                 case IDLE:
@@ -111,24 +111,27 @@ public class MeetsTeleOp extends BaseClass{
                     if(gamepad1.left_trigger>0.3){
                         state = State.FLOWER;
                     }
+                    break;
                 case INTAKE:
                     blocker.setPosition(blockDown);
                     intake.setPower(1);
                     flywheel.setPower(0);
                     counter.setPower(0);
+                    break;
                 case OUTTAKE:
                     blocker.setPosition(blockUp);
                     intake.setPower(0);
                     flywheel.setPower(0.465);
                     counter.setPower(0.41);
+                    break;
                 case FLOWER:
                     blocker.setPosition(blockDown);
                     intake.setPower(1);
                     flywheel.setPower(0);
                     counter.setPower(0);
                     flower.setPosition(flowerUp);
+                    break;
             }
-
             */
             telemetry.addData("flywheel", flywheel.getPower());
             telemetry.addData("turret", leftFront.getCurrentPosition());
