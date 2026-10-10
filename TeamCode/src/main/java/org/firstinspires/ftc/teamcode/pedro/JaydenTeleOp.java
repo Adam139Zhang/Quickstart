@@ -1,5 +1,4 @@
 package org.firstinspires.ftc.teamcode.pedro;
-
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
@@ -44,27 +43,30 @@ public class JaydenTeleOp extends BaseClass{
         Hwinit();
         waitForStart();
 
+        FtcDashboard dashboard = FtcDashboard.getInstance();
+        telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
+
         while(opModeIsActive()){
             LLResult limelight_detect = limelight.getLatestResult();
-            FtcDashboard dashboard = FtcDashboard.getInstance();
-            telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
 
+            // Mecanum
             MecanumDrive(gamepad1.right_stick_y, gamepad1.right_stick_x, gamepad1.left_stick_x);
 
+            // Turret control from gunner
             if(gamepad2.right_bumper) {
                 turret.setPower(0.7);
             } else if(gamepad2.left_bumper) {
                 turret.setPower(-0.7);
-            }
-            else if(limelight_detect.isValid()){
+            } else if(limelight_detect.isValid()){
                 if(Math.abs(limelight_detect.getTx())>5) {
                     double factor = 0.009 * Math.pow((Math.abs(limelight_detect.getTx()) / 5), 1.15);
                     turret.setPower(factor * limelight_detect.getTx());
                 }
-            }else{
+            } else {
                 turret.setPower(0);
             }
 
+            // FSM
             switch(state){
                 case IDLE:
                     blocker.setPosition(blockDown);
@@ -109,6 +111,7 @@ public class JaydenTeleOp extends BaseClass{
                     break;
             }
 
+            // Telemetry
             telemetry.addData("flywheel", flywheel.getPower());
             telemetry.addData("turret", leftFront.getCurrentPosition());
             telemetry.addData("ty", limelight_detect.getTy());
