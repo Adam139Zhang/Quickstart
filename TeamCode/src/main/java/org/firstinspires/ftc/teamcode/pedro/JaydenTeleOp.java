@@ -32,8 +32,7 @@ public class JaydenTeleOp extends BaseClass{
     public enum State {
         IDLE,
         INTAKE,
-        OUTTAKE,
-        FLOWER
+        OUTTAKE
     }
 
     State state = State.IDLE;
@@ -51,6 +50,16 @@ public class JaydenTeleOp extends BaseClass{
 
             // Mecanum
             MecanumDrive(gamepad1.right_stick_y, gamepad1.right_stick_x, gamepad1.left_stick_x);
+
+            // Flower collector
+            if(gamepad1.left_trigger>0.3) {
+                blocker.setPosition(blockDown);
+                intake.setPower(1);
+                flywheel.setPower(0);
+                counter.setPower(0);
+                flower.setPosition(flowerUp);
+                break;
+            }
 
             // Turret control from gunner
             if(gamepad2.right_bumper) {
@@ -81,10 +90,6 @@ public class JaydenTeleOp extends BaseClass{
                     if(gamepad1.right_bumper) {
                         state = State.OUTTAKE;
                     }
-
-                    if(gamepad1.left_trigger>0.3){
-                        state = State.FLOWER;
-                    }
                     break;
                 case INTAKE:
                     blocker.setPosition(blockDown);
@@ -101,13 +106,6 @@ public class JaydenTeleOp extends BaseClass{
                     } else {
                         blocker.setPosition(blockDown);
                     }
-                    break;
-                case FLOWER:
-                    blocker.setPosition(blockDown);
-                    intake.setPower(1);
-                    flywheel.setPower(0);
-                    counter.setPower(0);
-                    flower.setPosition(flowerUp);
                     break;
             }
 
