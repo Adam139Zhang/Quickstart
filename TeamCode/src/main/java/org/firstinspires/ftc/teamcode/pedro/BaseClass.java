@@ -44,7 +44,7 @@ public abstract class BaseClass extends LinearOpMode {
     public static double kP = 0, kI = 0, kD = 0, kF = 0.001;
 
     public static double blockDown = 0.2, blockUp = 0.11,
-            flowerDown = 0.46, flowerUp = 0.81,
+            flowerDown = 0.455, flowerUp = 0.81,
             intakePower = 0;
     public static double intakeSpeed = 0.7;
     public double maxSpeed = 1.0;

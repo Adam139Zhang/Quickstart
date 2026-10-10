@@ -75,8 +75,8 @@ public class MeetsTeleOp extends BaseClass{
             }
             if(gamepad1.left_bumper){
                 intakeSpeed = 1;
-                flywheel.setPower(0.45);
-                counter.setPower(0.4);
+                flywheel.setPower(0.465);
+                counter.setPower(0.41);
                 if(gamepad1.right_bumper){
                     blocker.setPosition(blockUp);
                 }else{
