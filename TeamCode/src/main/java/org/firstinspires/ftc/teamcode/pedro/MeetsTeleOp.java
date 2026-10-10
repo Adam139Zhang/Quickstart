@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.pedro;
 
-
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
@@ -22,10 +21,8 @@ import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-
 
 import java.util.List;
 
@@ -39,7 +36,7 @@ public class MeetsTeleOp extends BaseClass{
         Hwinit();
         waitForStart();
         while(opModeIsActive()){
-            LLResult result1 = limelight.getLatestResult();
+            LLResult limelight_detect = limelight.getLatestResult();
             FtcDashboard dashboard = FtcDashboard.getInstance();
             telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
 
@@ -49,26 +46,26 @@ public class MeetsTeleOp extends BaseClass{
             }else{
                 flower.setPosition(flowerUp);
             }
-            if(gamepad1.left_trigger>0.3){
+            if(gamepad1.left_trigger > 0.3) {
                 intake.setPower(intakeSpeed);
-            }else{
+            } else{
                 intake.setPower(0);
             }
             flywheelPID(0.5);
 
-            if(gamepad2.right_bumper){
+            if(gamepad2.right_bumper) {
                 turret.setPower(0.7);
-            }else if(gamepad2.left_bumper){
+            } else if(gamepad2.left_bumper) {
                 turret.setPower(-0.7);
             }
 //            else if(Math.abs(gamepad1.left_stick_x)>0.3){
 //                double factor = gamepad1.left_stick_x * Math.abs(gamepad1.left_stick_x);
 //                turret.setPower(-1*factor);
 //            }
-            else if(result1.isValid()){
-                if(Math.abs(result1.getTx())>5) {
-                    double factor = 0.009 * Math.pow((Math.abs(result1.getTx()) / 5), 1.15);
-                    turret.setPower(factor * result1.getTx());
+            else if(limelight_detect.isValid()){
+                if(Math.abs(limelight_detect.getTx())>5) {
+                    double factor = 0.009 * Math.pow((Math.abs(limelight_detect.getTx()) / 5), 1.15);
+                    turret.setPower(factor * limelight_detect.getTx());
                 }
             }else{
                 turret.setPower(0);
@@ -88,20 +85,55 @@ public class MeetsTeleOp extends BaseClass{
                 counter.setPower(0.2);
                 blocker.setPosition(blockDown);
             }
-//            switch(state){
-//                case IDLE:
-//                    blocker.setPosition(blockDown);
-//                    intake.setPower(0);
-//                    flywheel.setPower(0);
-//                    counter.setPower(0);
-//                    if(gamepad1.right_bumper){
-//                        state = State.INTAKE;
-//                    }
-//            }
+            /*
+            enum State {
+                IDLE,
+                INTAKE,
+                OUTTAKE,
+                FLOWER
+             }
+
+             State state = = State.IDLE;
+
+             switch(state){
+                case IDLE:
+                    blocker.setPosition(blockDown);
+                    intake.setPower(0);
+                    flywheel.setPower(0);
+                    counter.setPower(0);
+                    flower.setPosition(flowerDown);
+                    if(gamepad1.left_bumper){
+                        state = State.INTAKE;
+                    }
+                    if(gamepad1.right_bumper){
+                        state = State.OUTTAKE;
+                    }
+                    if(gamepad1.left_trigger>0.3){
+                        state = State.FLOWER;
+                    }
+                case INTAKE:
+                    blocker.setPosition(blockDown);
+                    intake.setPower(1);
+                    flywheel.setPower(0);
+                    counter.setPower(0);
+                case OUTTAKE:
+                    blocker.setPosition(blockUp);
+                    intake.setPower(0);
+                    flywheel.setPower(0.465);
+                    counter.setPower(0.41);
+                case FLOWER:
+                    blocker.setPosition(blockDown);
+                    intake.setPower(1);
+                    flywheel.setPower(0);
+                    counter.setPower(0);
+                    flower.setPosition(flowerUp);
+            }
+
+            */
             telemetry.addData("flywheel", flywheel.getPower());
             telemetry.addData("turret", leftFront.getCurrentPosition());
-            telemetry.addData("ty", result1.getTy());
-            telemetry.addData("tx", result1.getTx());
+            telemetry.addData("ty", limelight_detect.getTy());
+            telemetry.addData("tx", limelight_detect.getTx());
             telemetry.addData("joystick", gamepad2.right_stick_y);
             telemetry.update();
         }
