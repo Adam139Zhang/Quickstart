@@ -30,7 +30,6 @@ import java.util.List;
 @Config
 
 public class MeetsTeleOp extends BaseClass{
-
     @Override
     public void runOpMode(){
         Hwinit();
@@ -85,7 +84,7 @@ public class MeetsTeleOp extends BaseClass{
                 counter.setPower(0.2);
                 blocker.setPosition(blockDown);
             }
-            
+
             telemetry.addData("flywheel", flywheel.getPower());
             telemetry.addData("turret", leftFront.getCurrentPosition());
             telemetry.addData("ty", limelight_detect.getTy());
