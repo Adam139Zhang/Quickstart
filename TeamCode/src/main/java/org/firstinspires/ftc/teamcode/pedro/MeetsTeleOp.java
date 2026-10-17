@@ -85,54 +85,7 @@ public class MeetsTeleOp extends BaseClass{
                 counter.setPower(0.2);
                 blocker.setPosition(blockDown);
             }
-            /*
-            enum State {
-                IDLE,
-                INTAKE,
-                OUTTAKE,
-                FLOWER
-             }
-
-             State state = State.IDLE;
-
-             switch(state){
-                case IDLE:
-                    blocker.setPosition(blockDown);
-                    intake.setPower(0);
-                    flywheel.setPower(0);
-                    counter.setPower(0);
-                    flower.setPosition(flowerDown);
-                    if(gamepad1.left_bumper){
-                        state = State.INTAKE;
-                    }
-                    if(gamepad1.right_bumper){
-                        state = State.OUTTAKE;
-                    }
-                    if(gamepad1.left_trigger>0.3){
-                        state = State.FLOWER;
-                    }
-                    break;
-                case INTAKE:
-                    blocker.setPosition(blockDown);
-                    intake.setPower(1);
-                    flywheel.setPower(0);
-                    counter.setPower(0);
-                    break;
-                case OUTTAKE:
-                    blocker.setPosition(blockUp);
-                    intake.setPower(0);
-                    flywheel.setPower(0.465);
-                    counter.setPower(0.41);
-                    break;
-                case FLOWER:
-                    blocker.setPosition(blockDown);
-                    intake.setPower(1);
-                    flywheel.setPower(0);
-                    counter.setPower(0);
-                    flower.setPosition(flowerUp);
-                    break;
-            }
-            */
+            
             telemetry.addData("flywheel", flywheel.getPower());
             telemetry.addData("turret", leftFront.getCurrentPosition());
             telemetry.addData("ty", limelight_detect.getTy());
