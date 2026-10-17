@@ -58,15 +58,14 @@ public class JaydenTeleOp extends BaseClass{
                 flywheel.setPower(0);
                 counter.setPower(0);
                 flower.setPosition(flowerUp);
-                break;
             }
 
             // Turret
             if(gamepad2.right_bumper) {
-                turret.setPower(0.7);
+                turret.setPower(0.5);
             } else if(gamepad2.left_bumper) {
-                turret.setPower(-0.7);
-            } else if(limelight_detect.isValid()){
+                turret.setPower(-0.5);
+            } else if(limelight_detect.isValid()) {
                 if(Math.abs(limelight_detect.getTx())>5) {
                     double factor = 0.009 * Math.pow((Math.abs(limelight_detect.getTx()) / 5), 1.15);
                     turret.setPower(factor * limelight_detect.getTx());
@@ -84,6 +83,7 @@ public class JaydenTeleOp extends BaseClass{
                     flywheel.setPower(0);
                     counter.setPower(0);
                     flower.setPosition(flowerDown);
+
                     if(gamepad1.left_bumper) {
                         state = State.INTAKE;
                     }
@@ -97,10 +97,11 @@ public class JaydenTeleOp extends BaseClass{
                     intake.setPower(1);
                     flywheel.setPower(0);
                     counter.setPower(0);
-                    
+
                 case OUTTAKE:
                     flywheel.setPower(0.465);
                     counter.setPower(0.41);
+
                     if(gamepad1.right_trigger>0.3){
                         blocker.setPosition(blockUp);
                         intake.setPower(1);
@@ -111,11 +112,11 @@ public class JaydenTeleOp extends BaseClass{
             }
 
             // Telemetry
-            telemetry.addData("flywheel", flywheel.getPower());
-            telemetry.addData("turret", leftFront.getCurrentPosition());
-            telemetry.addData("ty", limelight_detect.getTy());
-            telemetry.addData("tx", limelight_detect.getTx());
-            telemetry.addData("joystick", gamepad2.right_stick_y);
+            telemetry.addData("Flywheel", flywheel.getPower());
+            telemetry.addData("Turret", leftFront.getCurrentPosition());
+            telemetry.addData("Ty", limelight_detect.getTy());
+            telemetry.addData("Tx", limelight_detect.getTx());
+            telemetry.addData("Joystick", gamepad2.right_stick_y);
             telemetry.update();
         }
     }

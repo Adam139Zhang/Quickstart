@@ -49,14 +49,14 @@ public abstract class BaseClass extends LinearOpMode {
     public static double intakeSpeed = 0.7;
     public double maxSpeed = 1.0;
     public boolean blockerDown = false;
-
+/*
     State state = State.IDLE;
     public enum State{
         IDLE,
         INTAKE,
         OUTTAKE,
     }
-
+*/
     @Override
     public abstract void runOpMode() throws InterruptedException;
     public void Hwinit(){
